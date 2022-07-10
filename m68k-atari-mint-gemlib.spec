@@ -2,17 +2,19 @@
 %global debug_package %{nil}
 %global __strip /bin/true
 
-%global cvsdate 20130415
+%global gitdate 20170304
+%global commit 533b3b231af3fb3f96a3bd4c40c6e6e0bdb2e521
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           m68k-atari-mint-gemlib
 Summary:        The GEM library for Atari MiNT
-Version:        0.43.6
-Release:        2.%{cvsdate}cvs%{?dist}
+Version:        0.44.0
+Release:        1.%{gitdate}git%{?dist}
 License:        Public Domain
-Group:          Development/Libraries
-URL:            http://arnaud.bercegeay.free.fr/gemlib/
-Source0:        http://vincent.riviere.free.fr/soft/m68k-atari-mint/archives/gemlib-CVS-%{cvsdate}.tar.bz2
+URL:            https://github.com/freemint/gemlib
+Source0:        https://github.com/freemint/gemlib/archive/%{commit}/gemlib-%{shortcommit}.tar.gz
 BuildArch:      noarch
+BuildRequires:  make
 BuildRequires:  m68k-atari-mint-gcc
 Requires:       m68k-atari-mint-gcc
 
@@ -23,7 +25,7 @@ and VDI layers.
 
 
 %prep
-%setup -q -n gemlib-CVS-%{cvsdate}
+%setup -q -n gemlib-%{commit}
 
 find . -type f -exec chmod -x {} \;
 
@@ -49,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT%{mint_libdir}/libgem16.a
 
 
 %changelog
+* Sun Jul 10 2022 Dan Horák <dan[at]danny.cz> - 0.44.0-1.20170304
+- updated to 20170304 snapshot
+
 * Wed May 14 2014 Dan Horák <dan[at]danny.cz> - 0.43.6-2.20130415
 - updated to 20130415 snapshot
 
